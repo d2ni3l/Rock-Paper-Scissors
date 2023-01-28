@@ -1,14 +1,15 @@
-import { useState } from 'react'
-
+import { useState } from 'react';
+import Header from './componets/Header';
+import Game from './componets/Game';
+import Button from './componets/Button';
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <div className="App">
-    <div className="bg-red-900 p-12">
-      hello
-    </div>
+    <div className='min-h-[100vh]'>
+    <Header/>
+    <Game/>
+    <Button/>
     </div>
   )
 }

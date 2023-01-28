@@ -5,3 +5,8 @@
 
 
 /* filter: drop-shadow(0 0 2em #61dafbaa); */
+ body{
+  background: radial-gradient(circle, #1f3756 50%, #141539);
+  
+  
+}
