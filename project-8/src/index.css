@@ -5,8 +5,36 @@
 
 
 /* filter: drop-shadow(0 0 2em #61dafbaa); */
- body{
-  background: radial-gradient(circle, #1f3756 50%, #141539);
+html{
+  background: radial-gradient(circle, #1f3756 50%, #141539 );
+  min-height: 100vh;
+  font-family: 'Barlow Semi Condensed', sans-serif; 
+}
+
+
+@media(min-width:1336px){
+  html{
+    background: radial-gradient( at top, #1f3756 50%, #141539 );
+  }
+}
+
+
+
+.tringle-background{
+  background-image: url('./assets/bg-triangle.svg');
+  background-repeat: no-repeat;
+  background-position: center;
   
   
+}
+.box-shadow-paper{
+  box-shadow: inset 0 6px rgba(0, 0, 0, 0.2), 0 6px rgba(86, 113, 245, 0.7);
+}
+
+.box-shadow-scissors{
+  box-shadow: inset 0 6px rgba(0, 0, 0, 0.2), 0 6px rgba(236, 169, 34, 0.7);
+}
+
+.box-shadow-rock{
+  box-shadow: inset 0 6px rgba(0, 0, 0, 0.2), 0 6px rgba(221, 64, 93, 0.7);
 }

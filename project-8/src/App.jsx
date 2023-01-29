@@ -6,7 +6,8 @@ import Button from './componets/Button';
 function App() {
 
   return (
-    <div className='min-h-[100vh]'>
+    <div className=''>
+      
     <Header/>
     <Game/>
     <Button/>
