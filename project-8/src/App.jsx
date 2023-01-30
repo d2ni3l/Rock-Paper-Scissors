@@ -6,12 +6,12 @@ import Button from './componets/Button';
 function App() {
 
   return (
-    <div className=''>
+    <>
       
     <Header/>
     <Game/>
     <Button/>
-    </div>
+    </>
   )
 }
 
