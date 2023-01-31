@@ -4,12 +4,16 @@ import Game from './componets/Game';
 import Button from './componets/Button';
 
 function App() {
+  const [score, setScore] = useState(0);
 
+  const handleScore = (score) => {
+    setScore(score);
+  }
   return (
     <>
       
-    <Header/>
-    <Game/>
+    <Header score={score}/>
+    <Game handleScore={handleScore}/>
     <Button/>
     </>
   )

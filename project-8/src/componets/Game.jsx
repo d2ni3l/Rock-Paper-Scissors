@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 
-// i will not handle draws so future me write some code for that
-// figure out a way to do the loading thing before house choice is selected
 
-// do some more testing
-function Game() {
+
+
+function Game({handleScore}) {
   const [gameStep, setGameStep] = useState("first");
   const [choice, setChoice] = useState("");
   const [houseChoice, setHouseChoice] = useState("");
-  const [winner, setWinner] = useState('')
+  const [winner, setWinner] = useState('') 
+  const [score, setScore] = useState(0)
+
 
 
   function randomHouseChoice() {
@@ -31,14 +32,17 @@ function Game() {
   };
 
  
+
+
+ 
   useEffect(() => {
     randomHouseChoice();
     
+    
   }, [])
-console.log()
-//   for no draws  (if you someone looking at this code Daniel was too lazy to build logic for draw)
- 
 
+ 
+// handles winner and recall randomHouseChoice if house and choice is the same 
 const handleWinner = () => {
   if (choice === 'rock' && houseChoice === 'scissors' ){
     setWinner('User')
@@ -61,16 +65,39 @@ const handleWinner = () => {
   if (houseChoice === 'paper' && choice === 'rock' ){
     setWinner('House')
   }
+  if(choice === 'rock' && houseChoice === 'rock' || choice === 'paper' && houseChoice === 'paper' || choice === 'scissors' && houseChoice === 'scissors'){
+    randomHouseChoice()
+  }
 }
+
+const changeScore = () => {
+    if (gameStep === "fourth" && winner === 'User'){
+        setScore((score) => score + 1)
+     }else if(gameStep === "fourth" && winner === 'House'){
+        setScore((score) => score - 1)
+        
+     }
+
+}
+
+useEffect(() => {
+  changeScore();
+
+}, [gameStep, winner])
+console.log(score)
   
 
   useEffect(() => {
    changeStep()
    handleWinner()
+   handleScore(score)
    
-  }, [gameStep, choice, houseChoice]);
+   
+  }, [gameStep, choice, houseChoice, score]);
 
- console.log(winner)
+ console.log(houseChoice)
+ console.log(gameStep)
+
 // 
   return (
     <>
@@ -86,7 +113,7 @@ const handleWinner = () => {
       )}
       {
         gameStep === 'fourth' && (
-            <GameStep4 choice={choice} houseChoice={houseChoice} winner={winner} />
+            <GameStep4 choice={choice} houseChoice={houseChoice} setGameStep={setGameStep} winner={winner} />
         )
       }
     </>
@@ -216,34 +243,22 @@ const GameStep2 = ({ choice,  setGameStep  }) => {
       </div>
 
       <div className='flex pt-20 gap-5'>
-        <button onClick={() => {
-            setTimeout(() => {
-              setGameStep('first')
-            }, 1000)
-        }} className='border-2 border-[#e8e8e8] rounded-lg px-6 py-1 flex flex-col items-center justify-center focus:scale-[1.05] transition duration-150'>
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            className='w-8 fill-white'
-            viewBox='0 0 512 512'>
-            <path d='M109.3 288L480 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-370.7 0 73.4-73.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-128 128c-12.5 12.5-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 288z' />
-          </svg>
-          <span className='text-white text-sm uppercase tracking-widest'>rechoose</span>
-        </button>
+        
         <button 
         onClick={() => {
             setTimeout(() => {
               setGameStep('third')
-            }, 1000)
+            }, 500)
         }}
         
-        className='border-2 border-[#e8e8e8] rounded-lg px-6 py-1  flex flex-col items-center justify-center focus:scale-[1.05] transition duration-150'>
+        className=' rounded-lg px-12 py-1 bg-[#e8e8e8] mix-blend-lighten flex flex-col items-center justify-center focus:scale-[1.05] transition duration-150'>
           <svg
             xmlns='http://www.wl3.org/2000/svg'
-            className='w-8 fill-white'
+            className='w-8 fill-black'
             viewBox='0 0 512 512'>
             <path d='M502.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l370.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128z' />
           </svg>
-          <span className='text-white text-sm uppercase tracking-widest'>continue</span>
+          <span className='text-black font-bold text-sm uppercase tracking-widest'>continue</span>
         </button>
       </div>
     </div>
@@ -354,10 +369,11 @@ const GameStep3 = ({ choice, houseChoice }) => {
   );
 };
 
-const GameStep4 = ({choice, houseChoice,winner}) => {
+const GameStep4 = ({choice, houseChoice,winner, setGameStep}) => {
+
     return(
-        <div className='mx-5 pt-32 pb-20 flex justify-center'>
-        <div className='grid grid-cols-2  items-center gap-10 xs:gap-10 justify-center md:gap-32'>
+        <div className='mx-5 pt-32 pb-20 flex flex-col justify-center'>
+        <div className='flex  items-center gap-10 xs:gap-10 justify-center md:gap-32'>
 
         {choice === "rock" && (
             <div className='flex flex-col items-center gap-6 justify-center'>
@@ -378,7 +394,7 @@ const GameStep4 = ({choice, houseChoice,winner}) => {
           {choice === "paper" && (
             
             <div className='flex flex-col items-center gap-6 justify-center  '>
-              <button className={`${winner === 'User' && 'user-pick'}  bg-[#e8e8e8] rounded-full  py-7 user-pick   px-8 xs:py-10 xs:px-11  border-[15px] box-shadow-paper cursor-pointer   border-[#4d6af7] focus:scale-[1.07] transition duration-300 `}>
+              <button className={`${winner === 'User' && 'user-pick'}  bg-[#e8e8e8] rounded-full  py-7    px-8 xs:py-10 xs:px-11  border-[15px] box-shadow-paper cursor-pointer   border-[#4d6af7] focus:scale-[1.07] transition duration-300 `}>
                 <svg xmlns='http://www.w3.org/2000/svg' width='48' height='54'>
                   <path
                     fill='#3c4262'
@@ -455,9 +471,12 @@ const GameStep4 = ({choice, houseChoice,winner}) => {
               </span>
             </div>
           )}
-         <p className="text-white text-2xl text-center"> {winner === 'User' ? 'You win' : 'You Lose'}</p>
-    
+
         </div>
+        <div className="flex flex-col justify-center items-center mt-20 gap-4">
+         <p className="text-white  text-center font-bold text-5xl uppercase tracking-wide pb-6"> {winner === 'User' ? 'You win' : 'You Lose'}</p>
+         <button onClick={() => {setGameStep('first')}} className="px-8 py-2 text-[#000000] focus:scale-[1.04] transition mix-blend-lighten bg-[#fafafa] tracking-widest font-bold uppercase rounded-lg">Play again</button>
+         </div>
         </div>
 
     )
