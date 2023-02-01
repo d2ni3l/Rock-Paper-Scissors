@@ -1,6 +1,6 @@
 
 
-## Project Name 
+## Project Name     
 
 #### Rock Paper scissors Game
 
@@ -15,7 +15,7 @@ https://rock-paper-sciccors.netlify.app/
 
 Clone down this repository. You will need `node` and `npm` installed globally on your machine.  
 
-Installation:
+Installation:    
 
 `npm install`  
 
@@ -30,4 +30,4 @@ To Visit App:
 Can you reach 5 points 😉
 
 
-![alt text](https://res.cloudinary.com/dz209s6jk/image/upload/f_auto,q_auto:low,w_200/Challenges/hoqxujbnnumv1ildmus4.jpg)
+![alt text](https://res.cloudinary.com/dz209s6jk/image/upload/f_auto,q_auto,w_475/Screenshots/jovdscp9wbuuska01jwl.jpg)
