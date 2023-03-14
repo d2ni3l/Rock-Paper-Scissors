@@ -8,4 +8,4 @@ function Watermark() {
   )
 }
 
-export default Watermark
+export default Watermark;
